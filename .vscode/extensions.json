@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "firebase.vscode-firebase-explorer",
+    "toba.vsfire",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
