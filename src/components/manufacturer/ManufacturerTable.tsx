@@ -3,7 +3,9 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
+  type SortingState,
 } from '@tanstack/react-table';
 
 import {
@@ -23,6 +25,8 @@ import {
 } from '@/components/ui/pagination';
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
+import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { useState } from 'react';
 
 // Types and Data
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
@@ -33,7 +37,21 @@ const columnHelper = createColumnHelper<Manufacturer>();
 
 const columns = [
   columnHelper.accessor('id', {
-    header: 'ID',
+    header: ({ column }) => (
+      <button
+        className="flex items-center gap-1 hover:text-foreground"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        ID
+        {column.getIsSorted() === 'asc' ? (
+          <ArrowUp className="h-3 w-3" />
+        ) : column.getIsSorted() === 'desc' ? (
+          <ArrowDown className="h-3 w-3" />
+        ) : (
+          <ArrowUpDown className="h-3 w-3 opacity-50" />
+        )}
+      </button>
+    ),
     cell: (info) => (
       <Link
         to="/dashboard/manufacturers/$manId"
@@ -45,7 +63,21 @@ const columns = [
     ),
   }),
   columnHelper.accessor('name', {
-    header: 'Name',
+    header: ({ column }) => (
+      <button
+        className="flex items-center gap-1 hover:text-foreground"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Name
+        {column.getIsSorted() === 'asc' ? (
+          <ArrowUp className="h-3 w-3" />
+        ) : column.getIsSorted() === 'desc' ? (
+          <ArrowDown className="h-3 w-3" />
+        ) : (
+          <ArrowUpDown className="h-3 w-3 opacity-50" />
+        )}
+      </button>
+    ),
     cell: (info) => (
       <Link
         to="/dashboard/manufacturers/$manId"
@@ -78,11 +110,16 @@ const columns = [
 
 export default function ManufacturerTable() {
   'use no memo';
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const table = useReactTable({
     data: manufacturerDetails,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+    state: { sorting },
     initialState: {
       pagination: { pageSize: 10, pageIndex: 0 },
     },
