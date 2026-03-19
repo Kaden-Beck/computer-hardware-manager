@@ -18,13 +18,12 @@ Full-stack app utilizing React and TypeScript to demonstrate type-safe patterns 
 
 ## Backend
 
-  - Firestore
-  - Firebase Authentication
-  - Firebase Hosting
-  - Firebase App Check
+- Firestore
+- Firebase Authentication
+- Firebase Hosting
+- Firebase App Check
 
 ## Design
 
 - Tailwind CSS
 - Shadcn using the `avlwEeO` preset
-
