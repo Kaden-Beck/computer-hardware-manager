@@ -8,5 +8,5 @@ export type Product = {
   price?: number;
   quantity: number;
   manufacturerId: string; // references Manufacturer
-  categoryId: string;     // references Category
+  categoryId: string; // references Category
 };

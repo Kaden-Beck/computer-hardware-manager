@@ -42,11 +42,11 @@ import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 
 // Types and Data
-import { manufacturerDetails } from '@/data/stub/manufacturerData';
-import type { Manufacturer } from '@/schema/Manufacturer';
+import { categoryDetails } from '@/data/stub/categoryData';
+import type { Category } from '@/schema/Category';
 
 // Table Helpers
-const columnHelper = createColumnHelper<Manufacturer>();
+const columnHelper = createColumnHelper<Category>();
 
 const columns = [
   columnHelper.accessor('id', {
@@ -67,8 +67,8 @@ const columns = [
     ),
     cell: (info) => (
       <Link
-        to="/dashboard/manufacturers/$manId"
-        params={{ manId: info.row.original.id }}
+        to="/dashboard/categories/$catId"
+        params={{ catId: info.row.original.id }}
         className="underline hover:text-primary"
       >
         {info.getValue()}
@@ -93,8 +93,8 @@ const columns = [
     ),
     cell: (info) => (
       <Link
-        to="/dashboard/manufacturers/$manId"
-        params={{ manId: info.row.original.id }}
+        to="/dashboard/categories/$catId"
+        params={{ catId: info.row.original.id }}
         className="underline hover:text-primary"
       >
         {info.getValue()}
@@ -105,14 +105,27 @@ const columns = [
     header: 'Description',
     cell: (info) => info.getValue(),
   }),
+  columnHelper.accessor('isParent', {
+    header: 'Parent',
+    cell: (info) => (info.getValue() ? 'Yes' : 'No'),
+  }),
+  columnHelper.accessor('parentId', {
+    header: 'Parent Category',
+    cell: (info) => {
+      const parentId = info.getValue();
+      if (!parentId) return '—';
+      const parent = categoryDetails.find((c) => c.id === parentId);
+      return parent?.name ?? parentId;
+    },
+  }),
   columnHelper.display({
     id: 'actions',
     header: 'Actions',
     cell: (info) => (
       <Button variant="outline" size="sm" asChild>
         <Link
-          to="/dashboard/manufacturers/$manId/edit"
-          params={{ manId: info.row.original.id }}
+          to="/dashboard/categories/$catId/edit"
+          params={{ catId: info.row.original.id }}
         >
           Edit
         </Link>
@@ -121,14 +134,16 @@ const columns = [
   }),
 ];
 
-export default function ManufacturerTable() {
+export default function CategoryTable() {
   'use no memo';
-  const [data, setData] = useState<Manufacturer[]>(manufacturerDetails);
+  const [data, setData] = useState<Category[]>(categoryDetails);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [sheetOpen, setSheetOpen] = useState(false);
   const [newName, setNewName] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newIsParent, setNewIsParent] = useState(true);
+  const [newParentId, setNewParentId] = useState('');
 
   const table = useReactTable({
     data,
@@ -147,14 +162,18 @@ export default function ManufacturerTable() {
 
   function handleAdd() {
     if (!newName.trim()) return;
-    const newManufacturer: Manufacturer = {
+    const newCategory: Category = {
       id: Math.random().toString(16).slice(2, 10),
       name: newName.trim(),
       description: newDescription.trim(),
+      isParent: newIsParent,
+      parentId: newIsParent ? undefined : newParentId.trim() || undefined,
     };
-    setData((prev) => [...prev, newManufacturer]);
+    setData((prev) => [...prev, newCategory]);
     setNewName('');
     setNewDescription('');
+    setNewIsParent(true);
+    setNewParentId('');
     setSheetOpen(false);
   }
 
@@ -162,7 +181,7 @@ export default function ManufacturerTable() {
     <div>
       <div className="flex items-center justify-between gap-4 mb-4">
         <Input
-          placeholder="Search manufacturers..."
+          placeholder="Search categories..."
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
           className="max-w-sm"
@@ -171,12 +190,12 @@ export default function ManufacturerTable() {
           <SheetTrigger asChild>
             <Button size="sm">
               <Plus className="h-4 w-4 mr-1" />
-              Add Manufacturer
+              Add Category
             </Button>
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>Add Manufacturer</SheetTitle>
+              <SheetTitle>Add Category</SheetTitle>
             </SheetHeader>
             <div className="flex flex-col gap-4 mt-6 px-4">
               <div className="flex flex-col gap-2">
@@ -185,7 +204,7 @@ export default function ManufacturerTable() {
                   id="name"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
-                  placeholder="e.g. Corsair"
+                  placeholder="e.g. Monitors"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -194,9 +213,30 @@ export default function ManufacturerTable() {
                   id="description"
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
-                  placeholder="e.g. Produces RAM, PSUs, and peripherals."
+                  placeholder="e.g. Display panels and monitors."
                 />
               </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="isParent"
+                  checked={newIsParent}
+                  onChange={(e) => setNewIsParent(e.target.checked)}
+                  className="h-4 w-4"
+                />
+                <Label htmlFor="isParent">Top-level category</Label>
+              </div>
+              {!newIsParent && (
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="parentId">Parent Category ID</Label>
+                  <Input
+                    id="parentId"
+                    value={newParentId}
+                    onChange={(e) => setNewParentId(e.target.value)}
+                    placeholder="e.g. cat00001"
+                  />
+                </div>
+              )}
               <Button onClick={handleAdd} className="mt-2">
                 Save
               </Button>

@@ -1,9 +1,6 @@
+import CategoryPage from '@/components/category/Category';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/dashboard/categories/')({
-  component: RouteComponent,
+  component: CategoryPage,
 });
-
-function RouteComponent() {
-  return <div>Hello "/dashboard/categories/"!</div>;
-}

@@ -27,13 +27,16 @@ type Crumb = {
 
 const SECTIONS: Record<string, { label: string; href: string }> = {
   manufacturers: { label: 'Manufacturers', href: '/dashboard/manufacturers' },
-  products:      { label: 'Products',       href: '/dashboard/products' },
-  categories:    { label: 'Categories',     href: '/dashboard/categories' },
-  inventory:     { label: 'Inventory',      href: '/dashboard/inventory' },
+  products: { label: 'Products', href: '/dashboard/products' },
+  categories: { label: 'Categories', href: '/dashboard/categories' },
+  inventory: { label: 'Inventory', href: '/dashboard/inventory' },
 };
 
 function buildCrumbs(pathname: string): Crumb[] {
-  const segments = pathname.replace(/^\/dashboard\/?/, '').split('/').filter(Boolean);
+  const segments = pathname
+    .replace(/^\/dashboard\/?/, '')
+    .split('/')
+    .filter(Boolean);
   if (!segments.length) return [{ label: 'Dashboard' }];
 
   const [section, id, action] = segments;
@@ -44,7 +47,9 @@ function buildCrumbs(pathname: string): Crumb[] {
   if (!id) return [{ label: sectionInfo.label }];
 
   // Build section crumb (always a link since we're deeper)
-  const crumbs: Crumb[] = [{ label: sectionInfo.label, href: sectionInfo.href }];
+  const crumbs: Crumb[] = [
+    { label: sectionInfo.label, href: sectionInfo.href },
+  ];
 
   // Resolve entity name from stub data
   let entityName = id;
