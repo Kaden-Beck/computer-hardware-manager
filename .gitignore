@@ -36,5 +36,5 @@ ui-debug.log
 
 # claude code
 .claude
-claude.md
+CLAUDE.md
 src/routeTree.gen.ts
