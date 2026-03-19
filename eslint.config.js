@@ -13,6 +13,7 @@ export default defineConfig([
   ...pluginRouter.configs['flat/recommended'],
   {
     rules: {
+      'react-hooks/react-compiler': 'off',
       'import/no-cycle': 'off',
       'import/order': 'off',
       'sort-imports': 'off',

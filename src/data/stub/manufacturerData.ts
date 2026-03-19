@@ -1,4 +1,4 @@
-import type { Manufacturer } from "@/schema/Manufacturer";
+import type { Manufacturer } from '@/schema/Manufacturer';
 
 export const manufacturerDetails: Manufacturer[] = [
   {
@@ -9,12 +9,14 @@ export const manufacturerDetails: Manufacturer[] = [
   {
     id: '489e1d42',
     name: 'AMD',
-    description: 'Produces CPUs, GPUs, and APUs for consumer and enterprise markets.',
+    description:
+      'Produces CPUs, GPUs, and APUs for consumer and enterprise markets.',
   },
   {
     id: '1a2b3c4d',
     name: 'Intel',
-    description: 'Produces CPUs, motherboard chipsets, and integrated graphics.',
+    description:
+      'Produces CPUs, motherboard chipsets, and integrated graphics.',
   },
   {
     id: '5e6f7a8b',
@@ -24,7 +26,8 @@ export const manufacturerDetails: Manufacturer[] = [
   {
     id: '9c0d1e2f',
     name: 'MSI',
-    description: 'Produces motherboards, GPUs, laptops, and gaming peripherals.',
+    description:
+      'Produces motherboards, GPUs, laptops, and gaming peripherals.',
   },
   {
     id: '3f4a5b6c',

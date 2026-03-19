@@ -1,13 +1,8 @@
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-  type SortingState,
-} from '@tanstack/react-table';
 
+// Shadcn Imports
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Table,
   TableBody,
@@ -23,9 +18,29 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+// TanStack Table Imports
+import {
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+  type SortingState,
+} from '@tanstack/react-table';
+import { ArrowUpDown, ArrowUp, ArrowDown, Plus } from 'lucide-react';
+// TanStack Router Import for Link Element
 import { Link } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
-import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+
+
 import { useState } from 'react';
 
 // Types and Data
@@ -110,23 +125,87 @@ const columns = [
 
 export default function ManufacturerTable() {
   'use no memo';
+  const [data, setData] = useState<Manufacturer[]>(manufacturerDetails);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [newDescription, setNewDescription] = useState('');
 
   const table = useReactTable({
-    data: manufacturerDetails,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
-    state: { sorting },
+    onGlobalFilterChange: setGlobalFilter,
+    state: { sorting, globalFilter },
     initialState: {
       pagination: { pageSize: 10, pageIndex: 0 },
     },
   });
 
+  function handleAdd() {
+    if (!newName.trim()) return;
+    const newManufacturer: Manufacturer = {
+      id: Math.random().toString(16).slice(2, 10),
+      name: newName.trim(),
+      description: newDescription.trim(),
+    };
+    setData((prev) => [...prev, newManufacturer]);
+    setNewName('');
+    setNewDescription('');
+    setSheetOpen(false);
+  }
+
   return (
     <div>
+      <div className="flex items-center justify-between gap-4 mb-4">
+        <Input
+          placeholder="Search manufacturers..."
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          className="max-w-sm"
+        />
+        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+          <SheetTrigger asChild>
+            <Button size="sm">
+              <Plus className="h-4 w-4 mr-1" />
+              Add Manufacturer
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Add Manufacturer</SheetTitle>
+            </SheetHeader>
+            <div className="flex flex-col gap-4 mt-6 px-4">
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                  placeholder="e.g. Corsair"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="description">Description</Label>
+                <Input
+                  id="description"
+                  value={newDescription}
+                  onChange={(e) => setNewDescription(e.target.value)}
+                  placeholder="e.g. Produces RAM, PSUs, and peripherals."
+                />
+              </div>
+              <Button onClick={handleAdd} className="mt-2">
+                Save
+              </Button>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
       <Table>
         <TableHeader className="bg-muted/50">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -162,19 +241,26 @@ export default function ManufacturerTable() {
             <PaginationPrevious
               onClick={() => table.previousPage()}
               aria-disabled={!table.getCanPreviousPage()}
-              className={!table.getCanPreviousPage() ? 'pointer-events-none opacity-50' : ''}
+              className={
+                !table.getCanPreviousPage()
+                  ? 'pointer-events-none opacity-50'
+                  : ''
+              }
             />
           </PaginationItem>
           <PaginationItem>
             <span className="px-4 text-sm">
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+              Page {table.getState().pagination.pageIndex + 1} of{' '}
+              {table.getPageCount()}
             </span>
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
               onClick={() => table.nextPage()}
               aria-disabled={!table.getCanNextPage()}
-              className={!table.getCanNextPage() ? 'pointer-events-none opacity-50' : ''}
+              className={
+                !table.getCanNextPage() ? 'pointer-events-none opacity-50' : ''
+              }
             />
           </PaginationItem>
         </PaginationContent>

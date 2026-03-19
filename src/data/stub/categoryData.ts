@@ -4,12 +4,14 @@ export const categoryDetails: Category[] = [
   {
     id: 'cat00001',
     name: 'GPU',
-    description: 'Graphics processing units for rendering and compute workloads.',
+    description:
+      'Graphics processing units for rendering and compute workloads.',
   },
   {
     id: 'cat00002',
     name: 'CPU',
-    description: 'Central processing units, the primary compute component of a system.',
+    description:
+      'Central processing units, the primary compute component of a system.',
   },
   {
     id: 'cat00003',
@@ -29,7 +31,8 @@ export const categoryDetails: Category[] = [
   {
     id: 'cat00006',
     name: 'PSU',
-    description: 'Power supply units that provide regulated power to system components.',
+    description:
+      'Power supply units that provide regulated power to system components.',
   },
   {
     id: 'cat00007',
