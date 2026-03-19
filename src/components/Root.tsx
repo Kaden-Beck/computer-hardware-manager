@@ -1,10 +1,11 @@
 import { Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export default function RootComponent() {
   return (
-    <>
+    <TooltipProvider>
       <Outlet />
       <TanStackDevtools
         config={{
@@ -17,6 +18,6 @@ export default function RootComponent() {
           },
         ]}
       />
-    </>
+    </TooltipProvider>
   );
 }

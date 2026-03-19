@@ -4,5 +4,3 @@ import AboutComponent from '../components/About';
 export const Route = createFileRoute('/about')({
   component: AboutComponent,
 });
-
-
