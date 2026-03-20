@@ -359,35 +359,53 @@ export default function ProductTable() {
               <AlertDialogTitle>Confirm New Product</AlertDialogTitle>
               <AlertDialogDescription asChild>
                 <div className="space-y-1 text-sm">
-                  <p><span className="font-medium">Name:</span> {newName.trim()}</p>
-                  <p><span className="font-medium">SKU:</span> {newSku.trim()}</p>
+                  <p>
+                    <span className="font-medium">Name:</span> {newName.trim()}
+                  </p>
+                  <p>
+                    <span className="font-medium">SKU:</span> {newSku.trim()}
+                  </p>
                   {newDescription.trim() && (
-                    <p><span className="font-medium">Description:</span> {newDescription.trim()}</p>
+                    <p>
+                      <span className="font-medium">Description:</span>{' '}
+                      {newDescription.trim()}
+                    </p>
                   )}
                   {newManufacturerId && (
                     <p>
                       <span className="font-medium">Manufacturer:</span>{' '}
-                      {manufacturerDetails.find((m) => m.id === newManufacturerId)?.name ?? newManufacturerId}
+                      {manufacturerDetails.find(
+                        (m) => m.id === newManufacturerId
+                      )?.name ?? newManufacturerId}
                     </p>
                   )}
                   {newCategoryId && (
                     <p>
                       <span className="font-medium">Category:</span>{' '}
-                      {categoryDetails.find((c) => c.id === newCategoryId)?.name ?? newCategoryId}
+                      {categoryDetails.find((c) => c.id === newCategoryId)
+                        ?.name ?? newCategoryId}
                     </p>
                   )}
                   {newMsrp && (
-                    <p><span className="font-medium">MSRP:</span> ${parseFloat(newMsrp).toFixed(2)}</p>
+                    <p>
+                      <span className="font-medium">MSRP:</span> $
+                      {parseFloat(newMsrp).toFixed(2)}
+                    </p>
                   )}
                   {newQuantity && (
-                    <p><span className="font-medium">Quantity:</span> {newQuantity}</p>
+                    <p>
+                      <span className="font-medium">Quantity:</span>{' '}
+                      {newQuantity}
+                    </p>
                   )}
                 </div>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleConfirm}>Confirm</AlertDialogAction>
+              <AlertDialogAction onClick={handleConfirm}>
+                Confirm
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

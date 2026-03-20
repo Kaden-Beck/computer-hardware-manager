@@ -265,20 +265,33 @@ export default function CategoryTable() {
               <AlertDialogTitle>Confirm New Category</AlertDialogTitle>
               <AlertDialogDescription asChild>
                 <div className="space-y-1 text-sm">
-                  <p><span className="font-medium">Name:</span> {newName.trim()}</p>
+                  <p>
+                    <span className="font-medium">Name:</span> {newName.trim()}
+                  </p>
                   {newDescription.trim() && (
-                    <p><span className="font-medium">Description:</span> {newDescription.trim()}</p>
+                    <p>
+                      <span className="font-medium">Description:</span>{' '}
+                      {newDescription.trim()}
+                    </p>
                   )}
-                  <p><span className="font-medium">Top-level:</span> {newIsParent ? 'Yes' : 'No'}</p>
+                  <p>
+                    <span className="font-medium">Top-level:</span>{' '}
+                    {newIsParent ? 'Yes' : 'No'}
+                  </p>
                   {!newIsParent && newParentId.trim() && (
-                    <p><span className="font-medium">Parent ID:</span> {newParentId.trim()}</p>
+                    <p>
+                      <span className="font-medium">Parent ID:</span>{' '}
+                      {newParentId.trim()}
+                    </p>
                   )}
                 </div>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleConfirm}>Confirm</AlertDialogAction>
+              <AlertDialogAction onClick={handleConfirm}>
+                Confirm
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

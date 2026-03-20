@@ -64,7 +64,8 @@ export const categoryDetails: Category[] = [
   {
     id: 'cat00102',
     name: 'SATA SSD',
-    description: 'SATA-interface solid-state drives for general-purpose storage.',
+    description:
+      'SATA-interface solid-state drives for general-purpose storage.',
     isParent: false,
     parentId: 'cat00005', // Storage
   },
@@ -78,7 +79,8 @@ export const categoryDetails: Category[] = [
   {
     id: 'cat00104',
     name: 'Air Cooling',
-    description: 'Heatsink and fan CPU coolers for air-based thermal management.',
+    description:
+      'Heatsink and fan CPU coolers for air-based thermal management.',
     isParent: false,
     parentId: 'cat00008', // Cooling
   },
@@ -92,7 +94,8 @@ export const categoryDetails: Category[] = [
   {
     id: 'cat00106',
     name: 'Workstation GPU',
-    description: 'Professional-grade GPUs for CAD, rendering, and ML workloads.',
+    description:
+      'Professional-grade GPUs for CAD, rendering, and ML workloads.',
     isParent: false,
     parentId: 'cat00001', // GPU
   },

@@ -87,7 +87,8 @@ export const manufacturerDetails: Manufacturer[] = [
   {
     id: 'frac0001',
     name: 'Fractal Design',
-    description: 'Produces PC cases and cooling solutions with a minimalist aesthetic.',
+    description:
+      'Produces PC cases and cooling solutions with a minimalist aesthetic.',
   },
   {
     id: 'lian0001',
@@ -102,12 +103,14 @@ export const manufacturerDetails: Manufacturer[] = [
   {
     id: 'gskl0001',
     name: 'G.Skill',
-    description: 'Produces high-performance RAM kits for enthusiast and gaming builds.',
+    description:
+      'Produces high-performance RAM kits for enthusiast and gaming builds.',
   },
   {
     id: 'seas0001',
     name: 'Seasonic',
-    description: 'Produces high-efficiency PSUs renowned for build quality and reliability.',
+    description:
+      'Produces high-efficiency PSUs renowned for build quality and reliability.',
   },
   {
     id: 'ttke0001',

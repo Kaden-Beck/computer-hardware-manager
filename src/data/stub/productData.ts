@@ -339,7 +339,8 @@ export const productDetails: Product[] = [
     sku: 'AMD-R5-5600',
     manufacturerId: '489e1d42', // AMD
     categoryId: 'cat00002',
-    description: '6-core 12-thread AM4 desktop CPU, excellent price-to-performance.',
+    description:
+      '6-core 12-thread AM4 desktop CPU, excellent price-to-performance.',
     msrp: 129.99,
     quantity: 85,
   },
@@ -349,7 +350,8 @@ export const productDetails: Product[] = [
     sku: 'AMD-R9-9950X',
     manufacturerId: '489e1d42', // AMD
     categoryId: 'cat00002',
-    description: '16-core 32-thread Zen 5 desktop CPU on AM5 with 5.7GHz boost.',
+    description:
+      '16-core 32-thread Zen 5 desktop CPU on AM5 with 5.7GHz boost.',
     msrp: 649.99,
     quantity: 14,
   },
@@ -413,7 +415,8 @@ export const productDetails: Product[] = [
     sku: 'CRU-PRO-DDR5-48',
     manufacturerId: 'cru00001', // Crucial
     categoryId: 'cat00004',
-    description: 'DDR5-4800 CL40 value kit (2x16GB), great for budget AM5/Z790 builds.',
+    description:
+      'DDR5-4800 CL40 value kit (2x16GB), great for budget AM5/Z790 builds.',
     msrp: 89.99,
     quantity: 100,
   },
@@ -423,7 +426,8 @@ export const productDetails: Product[] = [
     sku: 'GSK-RJV-DDR4-36',
     manufacturerId: 'gskl0001', // G.Skill
     categoryId: 'cat00004',
-    description: 'DDR4-3600 CL16 dual-channel kit (2x8GB), popular for AM4/Z490 builds.',
+    description:
+      'DDR4-3600 CL16 dual-channel kit (2x8GB), popular for AM4/Z490 builds.',
     msrp: 49.99,
     quantity: 120,
   },
@@ -445,7 +449,8 @@ export const productDetails: Product[] = [
     sku: 'SKH-P41-2TB',
     manufacturerId: 'skhx0001', // SK Hynix
     categoryId: 'cat00101',
-    description: 'PCIe 4.0 NVMe SSD with up to 7,000MB/s read, excellent efficiency.',
+    description:
+      'PCIe 4.0 NVMe SSD with up to 7,000MB/s read, excellent efficiency.',
     msrp: 149.99,
     quantity: 40,
   },
@@ -455,7 +460,8 @@ export const productDetails: Product[] = [
     sku: 'SEA-FC530-1TB',
     manufacturerId: 'd9e0f1a2', // Seagate
     categoryId: 'cat00101',
-    description: 'PCIe 4.0 NVMe SSD with up to 7,300MB/s read, heatsink model available.',
+    description:
+      'PCIe 4.0 NVMe SSD with up to 7,300MB/s read, heatsink model available.',
     msrp: 109.99,
     quantity: 45,
   },
@@ -465,7 +471,8 @@ export const productDetails: Product[] = [
     sku: 'WD-SN580-1TB',
     manufacturerId: 'f5a6b7c8', // Western Digital
     categoryId: 'cat00101',
-    description: 'PCIe 4.0 NVMe SSD for mainstream builds with up to 4,150MB/s read.',
+    description:
+      'PCIe 4.0 NVMe SSD for mainstream builds with up to 4,150MB/s read.',
     msrp: 79.99,
     quantity: 70,
   },
@@ -477,7 +484,8 @@ export const productDetails: Product[] = [
     sku: 'SAM-870EVO-1TB',
     manufacturerId: 'b1c2d3e4', // Samsung
     categoryId: 'cat00102',
-    description: '2.5" SATA SSD with up to 560MB/s read, ideal for laptop upgrades.',
+    description:
+      '2.5" SATA SSD with up to 560MB/s read, ideal for laptop upgrades.',
     msrp: 89.99,
     quantity: 80,
   },
@@ -553,7 +561,8 @@ export const productDetails: Product[] = [
     sku: 'FD-M2C',
     manufacturerId: 'frac0001', // Fractal Design
     categoryId: 'cat00007',
-    description: 'Compact mid-tower with angular mesh front for maximum airflow.',
+    description:
+      'Compact mid-tower with angular mesh front for maximum airflow.',
     msrp: 109.99,
     quantity: 20,
   },
@@ -573,7 +582,8 @@ export const productDetails: Product[] = [
     sku: 'NZ-H7F',
     manufacturerId: 'nzxt0001', // NZXT
     categoryId: 'cat00007',
-    description: 'Mid-tower ATX case with perforated mesh panels and clean aesthetic.',
+    description:
+      'Mid-tower ATX case with perforated mesh panels and clean aesthetic.',
     msrp: 149.99,
     quantity: 15,
   },
@@ -649,7 +659,8 @@ export const productDetails: Product[] = [
     sku: 'NV-RTXA4000',
     manufacturerId: '728ed52f', // NVIDIA
     categoryId: 'cat00106',
-    description: 'Professional GPU with 16GB ECC GDDR6, quad DisplayPort, single-slot.',
+    description:
+      'Professional GPU with 16GB ECC GDDR6, quad DisplayPort, single-slot.',
     msrp: 1099.99,
     quantity: 8,
   },
@@ -659,7 +670,8 @@ export const productDetails: Product[] = [
     sku: 'AMD-PRW7800',
     manufacturerId: '489e1d42', // AMD
     categoryId: 'cat00106',
-    description: 'Workstation GPU with 32GB GDDR6 ECC and four DisplayPort 2.1 outputs.',
+    description:
+      'Workstation GPU with 32GB GDDR6 ECC and four DisplayPort 2.1 outputs.',
     msrp: 2499.99,
     quantity: 5,
   },

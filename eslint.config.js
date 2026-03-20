@@ -37,5 +37,5 @@ export default defineConfig([
       },
     },
   },
-  globalIgnores(['dist', 'eslint.config.js', 'prettier.config.js']),
+  globalIgnores(['dist', 'eslint.config.js', 'prettier.config.js', 'src/components/ui']),
 ]);
