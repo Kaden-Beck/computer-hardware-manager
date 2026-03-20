@@ -1,9 +1,6 @@
+import ProductEditComponent from '@/components/product/ProductEdit';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/dashboard/products/$prodId/edit')({
-  component: RouteComponent,
+  component: ProductEditComponent,
 });
-
-function RouteComponent() {
-  return <div>Hello "/dashboard/products/$prodId/edit"!</div>;
-}
