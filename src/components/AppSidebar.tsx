@@ -24,13 +24,19 @@ interface SidebarData {
 import { sidebarData } from '@/data/sidebarCategories';
 import { signInWithGoogle, signOutUser } from '@/lib/firebase';
 import { useAuth } from '@/hooks/useAuth';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { GalleryVerticalEnd, LogInIcon, LogOutIcon } from 'lucide-react';
 
 export function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>): React.JSX.Element {
   const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleSignOut(): Promise<void> {
+    await signOutUser();
+    void navigate({ to: '/' });
+  }
 
   return (
     <Sidebar {...props}>
@@ -66,7 +72,7 @@ export function AppSidebar({
             {!loading && (
               user ? (
                 <SidebarMenuButton
-                  onClick={() => void signOutUser()}
+                  onClick={() => void handleSignOut()}
                   className="w-full"
                 >
                   <LogOutIcon className="size-4" />
