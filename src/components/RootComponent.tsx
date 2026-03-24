@@ -9,20 +9,20 @@ import { queryClient } from '@/lib/queryClient';
 export default function RootComponent(): React.JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Outlet />
-      <TanStackDevtools
-        config={{
-          position: 'bottom-right',
-        }}
-        plugins={[
-          {
-            name: 'TanStack Router',
-            render: <TanStackRouterDevtoolsPanel />,
-          },
-        ]}
-      />
-    </TooltipProvider>
+      <TooltipProvider>
+        <Outlet />
+        <TanStackDevtools
+          config={{
+            position: 'bottom-right',
+          }}
+          plugins={[
+            {
+              name: 'TanStack Router',
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }

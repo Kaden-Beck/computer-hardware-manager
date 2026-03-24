@@ -69,8 +69,8 @@ export function AppSidebar({
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            {!loading && (
-              user ? (
+            {!loading &&
+              (user ? (
                 <SidebarMenuButton
                   onClick={() => void handleSignOut()}
                   className="w-full"
@@ -91,8 +91,7 @@ export function AppSidebar({
                   <LogInIcon className="size-4" />
                   <span>Sign In with Google</span>
                 </SidebarMenuButton>
-              )
-            )}
+              ))}
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
