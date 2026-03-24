@@ -115,7 +115,15 @@ const columns = [
   }),
   columnHelper.accessor('sku', {
     header: 'SKU',
-    cell: (info) => info.getValue(),
+    cell: (info) => (
+      <Link
+        to="/dashboard/products/$prodId"
+        params={{ prodId: info.row.original.id }}
+        className="underline hover:text-primary"
+      >
+        {info.getValue()}
+      </Link>
+    ),
   }),
   columnHelper.accessor('manufacturerId', {
     header: 'Manufacturer',
