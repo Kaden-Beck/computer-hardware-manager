@@ -1,6 +1,8 @@
 import type React from 'react';
+import { useParams, Link } from '@tanstack/react-router';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
-import { useParams } from '@tanstack/react-router';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function ManufacturerDetailComponent(): React.JSX.Element | null {
   const { manId } = useParams({ from: '/dashboard/manufacturers/$manId' });
@@ -8,19 +10,38 @@ export default function ManufacturerDetailComponent(): React.JSX.Element | null 
 
   if (!manufacturer) return <div>Manufacturer not found.</div>;
 
+  const specs = [`ID: ${manufacturer.id}`, manufacturer.description];
+
   return (
-    <div className="flex flex-col gap-4">
-      <div>
-        <p className="text-sm text-muted-foreground">ID</p>
-        <p>{manufacturer.id}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Name</p>
-        <p>{manufacturer.name}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Description</p>
-        <p>{manufacturer.description}</p>
+    <div
+      className={cn(
+        'bg-background text-foreground border rounded-lg overflow-hidden w-full p-4 md:p-6'
+      )}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-stretch">
+        {/* Column 1: Details */}
+        <div className="flex flex-col gap-3">
+          <h2 className="text-lg font-semibold text-foreground">
+            {manufacturer.name}
+          </h2>
+          <ul className="space-y-2 text-sm list-none text-muted-foreground pt-2">
+            {specs.map((spec, index) => (
+              <li key={index}>{spec}</li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Column 2: Actions */}
+        <div className="flex flex-col h-full">
+          <Button asChild className="mt-auto w-fit px-8">
+            <Link
+              to="/dashboard/manufacturers/$manId/edit"
+              params={{ manId: manufacturer.id }}
+            >
+              Edit
+            </Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
