@@ -1,8 +1,10 @@
 import type React from 'react';
 import { useParams } from '@tanstack/react-router';
+
 import { productDetails } from '@/data/stub/productData';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import { categoryDetails } from '@/data/stub/categoryData';
+import { cn } from '@/lib/utils';
 
 export default function ProductDetailComponent(): React.JSX.Element | null {
   const { prodId } = useParams({ from: '/dashboard/products/$prodId' });
@@ -15,52 +17,51 @@ export default function ProductDetailComponent(): React.JSX.Element | null {
   );
   const category = categoryDetails.find((c) => c.id === product.categoryId);
 
+  const specs = [
+    `SKU: ${product.sku}`,
+    `Manufacturer: ${manufacturer?.name ?? product.manufacturerId}`,
+    `Category: ${category?.name ?? product.categoryId}`,
+    product.description,
+    ...(product.color ? [`Color: ${product.color}`] : []),
+    `In Stock: ${product.quantity} units`,
+  ];
+
   return (
-    <div className="flex flex-col gap-4">
-      <div>
-        <p className="text-sm text-muted-foreground">ID</p>
-        <p>{product.id}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Name</p>
-        <p>{product.name}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">SKU</p>
-        <p>{product.sku}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Description</p>
-        <p>{product.description}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Manufacturer</p>
-        <p>{manufacturer?.name ?? product.manufacturerId}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Category</p>
-        <p>{category?.name ?? product.categoryId}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">MSRP</p>
-        <p>${product.msrp.toFixed(2)}</p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Quantity</p>
-        <p>{product.quantity}</p>
-      </div>
-      {product.color && (
-        <div>
-          <p className="text-sm text-muted-foreground">Color</p>
-          <p>{product.color}</p>
-        </div>
+    <div
+      className={cn(
+        'bg-background text-foreground border rounded-lg overflow-hidden w-full p-4 md:p-6'
       )}
-      {product.price !== undefined && (
-        <div>
-          <p className="text-sm text-muted-foreground">Sale Price</p>
-          <p>${product.price.toFixed(2)}</p>
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-6 items-start">
+        {/* Column 1: Image */}
+        <div className="w-full aspect-square max-w-50 mx-auto bg-muted rounded-md overflow-hidden">
+          <img
+            src={`https://placehold.co/200x200/f3f4f6/6b7280?text=${encodeURIComponent(product.name)}`}
+            alt={product.name}
+            width={200}
+            height={200}
+            className="object-contain w-full h-full"
+          />
         </div>
-      )}
+
+        {/* Column 2: Product Details */}
+        <div className="flex flex-col gap-3">
+          <h2 className="text-lg font-semibold text-foreground">
+            {product.name}
+          </h2>
+          <ul className="space-y-2 text-sm list-none text-muted-foreground pt-2">
+            {specs.map((spec, index) => (
+              <li key={index}>{spec}</li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Column 3: Pricing */}
+        <div className="flex flex-col gap-1">
+          <h3 className="text-3xl font-bold">${product.msrp.toFixed(2)}</h3>
+          <p className="text-sm text-muted-foreground">MSRP</p>
+        </div>
+      </div>
     </div>
   );
 }

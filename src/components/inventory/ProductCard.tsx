@@ -4,7 +4,7 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card';
-import { Package } from 'lucide-react';
+
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { categoryDetails } from '@/data/stub/categoryData';
@@ -29,8 +29,14 @@ export default function ProductCard({
         params={{ prodId: product.id }}
         className="block"
       >
-        <div className="flex aspect-square items-center justify-center bg-muted">
-          <Package className="size-16 text-muted-foreground/40" />
+        <div className="flex aspect-square items-center justify-center bg-muted overflow-hidden">
+          <img
+            src={`https://placehold.co/200x200/f3f4f6/6b7280?text=${encodeURIComponent(product.name)}`}
+            alt={product.name}
+            width={200}
+            height={200}
+            className="object-contain w-full h-full"
+          />
         </div>
       </Link>
 
@@ -40,7 +46,7 @@ export default function ProductCard({
           params={{ prodId: product.id }}
           className="block w-full hover:opacity-80"
         >
-          <CardTitle className="line-clamp-2 leading-snug">
+          <CardTitle className="truncate text-sm">
             {product.name}
           </CardTitle>
           <CardDescription className="mt-0.5">
