@@ -62,9 +62,8 @@ export function InventoryGallery(): React.JSX.Element {
       product.name.toLowerCase().includes(filter.toLowerCase()) ||
       product.sku.toLowerCase().includes(filter.toLowerCase());
     // Filer (category)
-    const matchesCategory: boolean=
-      selectedCategory === 'all' || 
-      product.categoryId === selectedCategory;
+    const matchesCategory: boolean =
+      selectedCategory === 'all' || product.categoryId === selectedCategory;
     // Filter (manufacturer)
     const matchesManufacturer: boolean =
       selectedManufacturer === 'all' ||
