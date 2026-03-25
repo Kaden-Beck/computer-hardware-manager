@@ -1,11 +1,9 @@
 import { useForm } from '@tanstack/react-form';
-
-export interface CategoryFormValues {
-  name: string;
-  description: string;
-  isParent: boolean;
-  parentId: string;
-}
+import {
+  categorySchema,
+  type CategoryFormValues,
+} from '@/lib/validators/category';
+export type { CategoryFormValues };
 
 interface UseCategoryFormOptions {
   defaultValues?: Partial<CategoryFormValues>;
@@ -22,8 +20,12 @@ export function useCategoryForm({
       description: defaultValues?.description ?? '',
       isParent: defaultValues?.isParent ?? true,
       parentId: defaultValues?.parentId ?? '',
+      miscDetails: defaultValues?.miscDetails ?? '',
     },
-    onSubmit: async ({ value }): Promise<void> => {
+    validators: {
+      onChange: categorySchema,
+    },
+    onSubmit: async ({ value }) => {
       await onSubmit(value);
     },
   });

@@ -1,9 +1,9 @@
 import { useForm } from '@tanstack/react-form';
-
-export interface ManufacturerFormValues {
-  name: string;
-  description: string;
-}
+import {
+  manufacturerSchema,
+  type ManufacturerFormValues,
+} from '@/lib/validators/manufacturer';
+export type { ManufacturerFormValues };
 
 interface UseManufacturerFormOptions {
   defaultValues?: Partial<ManufacturerFormValues>;
@@ -19,7 +19,10 @@ export function useManufacturerForm({
       name: defaultValues?.name ?? '',
       description: defaultValues?.description ?? '',
     },
-    onSubmit: async ({ value }): Promise<void> => {
+    validators: {
+      onChange: manufacturerSchema,
+    },
+    onSubmit: async ({ value }) => {
       await onSubmit(value);
     },
   });
