@@ -12,14 +12,6 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 export default defineConfig([
   ...pluginRouter.configs['flat/recommended'],
   {
-    rules: {
-      'react-hooks/react-compiler': 'off',
-      'import/no-cycle': 'off',
-      'import/order': 'off',
-      'sort-imports': 'off',
-      '@typescript-eslint/array-type': 'off',
-      '@typescript-eslint/require-await': 'off',
-    },
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
@@ -35,6 +27,17 @@ export default defineConfig([
         project: ['./tsconfig.app.json', './tsconfig.node.json'],
         tsconfigRootDir: import.meta.dirname,
       },
+    },
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      'react-hooks/react-compiler': 'off',
+      'import/no-cycle': 'off',
+      'import/order': 'off',
+      'sort-imports': 'off',
+      '@typescript-eslint/array-type': 'off',
+      '@typescript-eslint/require-await': 'off',
     },
   },
   globalIgnores([

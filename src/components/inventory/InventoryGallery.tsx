@@ -1,6 +1,6 @@
-import type React from 'react';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
+import React from 'react';
+import ProductCard from './ProductCard';
+// Shadcn/ TW
 import { Input } from '@/components/ui/input';
 import {
   Pagination,
@@ -16,7 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import ProductCard from './ProductCard';
+import { cn } from '@/lib/utils';
+// Stub Data
 import { productDetails } from '@/data/stub/productData';
 import { categoryDetails } from '@/data/stub/categoryData';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
@@ -25,14 +26,18 @@ import { manufacturerDetails } from '@/data/stub/manufacturerData';
 const PAGE_SIZE = 12;
 
 export function InventoryGallery(): React.JSX.Element {
-  const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedManufacturer, setSelectedManufacturer] = useState('all');
-  const [stockStatus, setStockStatus] = useState<
+  /***************
+   * useState Hooks
+   ****************/
+  const [filter, setFilter] = React.useState('');
+  const [page, setPage] = React.useState(0);
+  const [selectedCategory, setSelectedCategory] = React.useState('all');
+  const [selectedManufacturer, setSelectedManufacturer] = React.useState('all');
+  const [stockStatus, setStockStatus] = React.useState<
     'all' | 'instock' | 'outofstock'
   >('all');
 
+  // (lazy)
   // Get unique categories and manufacturers from products
   const uniqueCategories = Array.from(
     new Set(productDetails.map((p) => p.categoryId))
@@ -48,32 +53,36 @@ export function InventoryGallery(): React.JSX.Element {
     .filter((mfg) => mfg !== undefined)
     .sort((a, b) => a!.name.localeCompare(b!.name));
 
+  // (lazy)
+  // Returned a list of filtered products based on user filter from stub data
   const filtered = productDetails.filter((product) => {
-    // Text search filter
-    const matchesSearch =
+    // Filter (text)
+    const textMatches: boolean =
+      !filter ||
       product.name.toLowerCase().includes(filter.toLowerCase()) ||
       product.sku.toLowerCase().includes(filter.toLowerCase());
-
-    // Category filter
-    const matchesCategory =
-      selectedCategory === 'all' || product.categoryId === selectedCategory;
-
-    // Manufacturer filter
-    const matchesManufacturer =
+    // Filer (category)
+    const matchesCategory: boolean=
+      selectedCategory === 'all' || 
+      product.categoryId === selectedCategory;
+    // Filter (manufacturer)
+    const matchesManufacturer: boolean =
       selectedManufacturer === 'all' ||
       product.manufacturerId === selectedManufacturer;
-
-    // Stock status filter
-    const matchesStock =
+    // Filter (stock)
+    const matchesStock: boolean =
       stockStatus === 'all' ||
       (stockStatus === 'instock' && product.quantity > 0) ||
       (stockStatus === 'outofstock' && product.quantity === 0);
-
+    // Return filtered results
     return (
-      matchesSearch && matchesCategory && matchesManufacturer && matchesStock
+      textMatches && matchesCategory && matchesManufacturer && matchesStock
     );
   });
 
+  /* *********
+   * Pagination
+   * **********/
   const pageCount = Math.ceil(filtered.length / PAGE_SIZE);
   const currentPage = Math.min(page, Math.max(0, pageCount - 1));
   const paged = filtered.slice(
@@ -81,6 +90,9 @@ export function InventoryGallery(): React.JSX.Element {
     (currentPage + 1) * PAGE_SIZE
   );
 
+  /* ***************
+   * Handle Filters
+   * ***************/
   function handleFilterChange(e: React.ChangeEvent<HTMLInputElement>): void {
     setFilter(e.target.value);
     setPage(0);

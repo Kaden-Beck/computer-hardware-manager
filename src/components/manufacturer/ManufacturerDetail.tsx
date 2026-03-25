@@ -1,7 +1,6 @@
 import type React from 'react';
-import { useParams, Link, Outlet, useMatch } from '@tanstack/react-router';
-import { manufacturerDetails } from '@/data/stub/manufacturerData';
-import { productDetails } from '@/data/stub/productData';
+import ProductCard from '@/components/inventory/ProductCard';
+// Shadcn/ TW Imports
 import { Button } from '@/components/ui/button';
 import {
   Carousel,
@@ -10,8 +9,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import ProductCard from '@/components/inventory/ProductCard';
+// Tanstack Imports
+import { useParams, Link, Outlet, useMatch } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
+// Stub Data
+import { manufacturerDetails } from '@/data/stub/manufacturerData';
+import { productDetails } from '@/data/stub/productData';
 
 export default function ManufacturerDetailComponent(): React.JSX.Element {
   // Get manufacturer by ID passed in params

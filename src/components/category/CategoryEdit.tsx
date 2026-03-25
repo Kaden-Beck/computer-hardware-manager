@@ -1,7 +1,9 @@
 import type React from 'react';
-import { useParams } from '@tanstack/react-router';
 
 export default function CategoryEditComponent(): React.JSX.Element {
-  const { catId } = useParams({ from: '/dashboard/categories/$catId/edit' });
-  return <div>Edit category {catId}</div>;
+  return (
+    <div className="border rounded-lg p-4 md:p-6">
+      <p className="text-sm text-muted-foreground">To do: Add edit form.</p>
+    </div>
+  );
 }

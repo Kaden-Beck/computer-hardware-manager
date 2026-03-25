@@ -1,3 +1,5 @@
+import React from 'react';
+
 // Shadcn Imports
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,9 +50,6 @@ import {
 import { ArrowUpDown, ArrowUp, ArrowDown, Plus } from 'lucide-react';
 // TanStack Router Import for Link Element
 import { Link } from '@tanstack/react-router';
-
-import type React from 'react';
-import { useState } from 'react';
 
 // Types and Data
 import { categoryDetails } from '@/data/stub/categoryData';
@@ -158,15 +157,15 @@ const columns = [
 
 export default function CategoryTable(): React.JSX.Element {
   'use no memo';
-  const [data, setData] = useState<Category[]>(categoryDetails);
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [newName, setNewName] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-  const [newIsParent, setNewIsParent] = useState(true);
-  const [newParentId, setNewParentId] = useState('');
+  const [data, setData] = React.useState<Category[]>(categoryDetails);
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = React.useState('');
+  const [sheetOpen, setSheetOpen] = React.useState(false);
+  const [confirmOpen, setConfirmOpen] = React.useState(false);
+  const [newName, setNewName] = React.useState('');
+  const [newDescription, setNewDescription] = React.useState('');
+  const [newIsParent, setNewIsParent] = React.useState(true);
+  const [newParentId, setNewParentId] = React.useState('');
 
   const table = useReactTable({
     data,
@@ -208,6 +207,7 @@ export default function CategoryTable(): React.JSX.Element {
   return (
     <div>
       <div className="flex items-center justify-between gap-4 mb-4">
+        ∏
         <Input
           placeholder="Search categories..."
           value={globalFilter}
