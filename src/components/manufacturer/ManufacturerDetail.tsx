@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useParams, Link } from '@tanstack/react-router';
+import { useParams, Link, Outlet, useMatch } from '@tanstack/react-router';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import { productDetails } from '@/data/stub/productData';
 import { Button } from '@/components/ui/button';
@@ -13,14 +13,22 @@ import {
 import ProductCard from '@/components/inventory/ProductCard';
 import { cn } from '@/lib/utils';
 
-export default function ManufacturerDetailComponent(): React.JSX.Element | null {
+export default function ManufacturerDetailComponent(): React.JSX.Element {
+  // Get manufacturer by ID passed in params
   const { manId } = useParams({ from: '/dashboard/manufacturers/$manId' });
   const manufacturer = manufacturerDetails.find((m) => m.id === manId);
 
+  // Get editing state using React Router useMatch Hook
+  const isEditing = !!useMatch({
+    from: '/dashboard/manufacturers/$manId/edit',
+    shouldThrow: false,
+  });
+
+  // Catch if no manufacturer at route
   if (!manufacturer) return <div>Manufacturer not found.</div>;
 
+  // Get products produced by manufacturer for carousel
   const products = productDetails.filter((p) => p.manufacturerId === manId);
-
   const specs = [`ID: ${manufacturer.id}`, manufacturer.description];
 
   return (
@@ -45,38 +53,53 @@ export default function ManufacturerDetailComponent(): React.JSX.Element | null 
 
           {/* Column 2: Actions */}
           <div className="flex flex-col h-full">
-            <Button asChild className="mt-auto w-fit px-8">
-              <Link
-                to="/dashboard/manufacturers/$manId/edit"
-                params={{ manId: manufacturer.id }}
-              >
-                Edit
-              </Link>
-            </Button>
+            {isEditing ? (
+              <Button asChild variant="outline" className="mt-auto w-fit px-8">
+                <Link
+                  to="/dashboard/manufacturers/$manId"
+                  params={{ manId: manufacturer.id }}
+                >
+                  Cancel
+                </Link>
+              </Button>
+            ) : (
+              <Button asChild className="mt-auto w-fit px-8">
+                <Link
+                  to="/dashboard/manufacturers/$manId/edit"
+                  params={{ manId: manufacturer.id }}
+                >
+                  Edit
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>
 
-      {products.length > 0 && (
-        <div className="px-12">
-          <h3 className="text-sm font-medium text-muted-foreground mb-4">
-            Products by this manufacturer
-          </h3>
-          <Carousel opts={{ align: 'start' }}>
-            <CarouselContent>
-              {products.map((product) => (
-                <CarouselItem
-                  key={product.id}
-                  className="basis-1/2 md:basis-1/3 lg:basis-1/4"
-                >
-                  <ProductCard product={product} compact />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </div>
+      {isEditing ? (
+        <Outlet />
+      ) : (
+        products.length > 0 && (
+          <div className="px-12">
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">
+              Products by {manufacturer.name}
+            </h3>
+            <Carousel opts={{ align: 'start' }}>
+              <CarouselContent>
+                {products.map((product) => (
+                  <CarouselItem
+                    key={product.id}
+                    className="basis-1/2 md:basis-1/3 lg:basis-1/4"
+                  >
+                    <ProductCard product={product} compact />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        )
       )}
     </div>
   );
