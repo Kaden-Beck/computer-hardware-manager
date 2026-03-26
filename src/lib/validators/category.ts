@@ -19,3 +19,11 @@ export const categorySchema = z
   });
 
 export type CategoryFormValues = z.infer<typeof categorySchema>;
+
+export const addCategorySchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  description: z.string().min(1, 'Description is required'),
+  parentId: z.string().min(1, 'Parent category is required'),
+});
+
+export type AddCategoryFormValues = z.infer<typeof addCategorySchema>;

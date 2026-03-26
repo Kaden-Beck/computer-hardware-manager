@@ -3,7 +3,6 @@ import React from 'react';
 // Shadcn Imports
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Table,
   TableBody,
@@ -26,16 +25,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 // TanStack Table Imports
 import {
   createColumnHelper,
@@ -54,6 +43,7 @@ import { Link } from '@tanstack/react-router';
 // Types and Data
 import { categoryDetails } from '@/data/stub/categoryData';
 import type { Category } from '@/schema/Category';
+import CategoryAddForm from './CategoryAddForm';
 
 // Table Helpers
 const columnHelper = createColumnHelper<Category>();
@@ -161,11 +151,6 @@ export default function CategoryTable(): React.JSX.Element {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [sheetOpen, setSheetOpen] = React.useState(false);
-  const [confirmOpen, setConfirmOpen] = React.useState(false);
-  const [newName, setNewName] = React.useState('');
-  const [newDescription, setNewDescription] = React.useState('');
-  const [newIsParent, setNewIsParent] = React.useState(true);
-  const [newParentId, setNewParentId] = React.useState('');
 
   const table = useReactTable({
     data,
@@ -181,28 +166,6 @@ export default function CategoryTable(): React.JSX.Element {
       pagination: { pageSize: 10, pageIndex: 0 },
     },
   });
-
-  function handleSaveClick() {
-    if (!newName.trim()) return;
-    setConfirmOpen(true);
-  }
-
-  function handleConfirm() {
-    const newCategory: Category = {
-      id: Math.random().toString(16).slice(2, 10),
-      name: newName.trim(),
-      description: newDescription.trim(),
-      isParent: newIsParent,
-      parentId: newIsParent ? undefined : newParentId.trim() || undefined,
-    };
-    setData((prev) => [...prev, newCategory]);
-    setNewName('');
-    setNewDescription('');
-    setNewIsParent(true);
-    setNewParentId('');
-    setConfirmOpen(false);
-    setSheetOpen(false);
-  }
 
   return (
     <div>
@@ -224,88 +187,9 @@ export default function CategoryTable(): React.JSX.Element {
             <SheetHeader>
               <SheetTitle>Add Category</SheetTitle>
             </SheetHeader>
-            <div className="flex flex-col gap-4 mt-6 px-4">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  placeholder="e.g. Monitors"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Input
-                  id="description"
-                  value={newDescription}
-                  onChange={(e) => setNewDescription(e.target.value)}
-                  placeholder="e.g. Display panels and monitors."
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="isParent"
-                  checked={newIsParent}
-                  onChange={(e) => setNewIsParent(e.target.checked)}
-                  className="h-4 w-4"
-                />
-                <Label htmlFor="isParent">Top-level category</Label>
-              </div>
-              {!newIsParent && (
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="parentId">Parent Category ID</Label>
-                  <Input
-                    id="parentId"
-                    value={newParentId}
-                    onChange={(e) => setNewParentId(e.target.value)}
-                    placeholder="e.g. cat00001"
-                  />
-                </div>
-              )}
-              <Button onClick={handleSaveClick} className="mt-2">
-                Save
-              </Button>
-            </div>
+            <CategoryAddForm onSuccess={() => setSheetOpen(false)} />
           </SheetContent>
         </Sheet>
-        <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Confirm New Category</AlertDialogTitle>
-              <AlertDialogDescription asChild>
-                <div className="space-y-1 text-sm">
-                  <p>
-                    <span className="font-medium">Name:</span> {newName.trim()}
-                  </p>
-                  {newDescription.trim() && (
-                    <p>
-                      <span className="font-medium">Description:</span>{' '}
-                      {newDescription.trim()}
-                    </p>
-                  )}
-                  <p>
-                    <span className="font-medium">Top-level:</span>{' '}
-                    {newIsParent ? 'Yes' : 'No'}
-                  </p>
-                  {!newIsParent && newParentId.trim() && (
-                    <p>
-                      <span className="font-medium">Parent ID:</span>{' '}
-                      {newParentId.trim()}
-                    </p>
-                  )}
-                </div>
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleConfirm}>
-                Confirm
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       </div>
       <Table>
         <TableHeader className="bg-muted/50">
