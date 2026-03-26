@@ -4,14 +4,6 @@ import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -52,9 +44,8 @@ export default function CategoryEditForm({
     null
   );
 
-  const parentCategories = categoryDetails.filter(
-    (c) => c.isParent && c.id !== category.id
-  );
+  const parentName =
+    categoryDetails.find((c) => c.id === category.parentId)?.name ?? '—';
 
   const form = useCategoryForm({
     defaultValues: {
@@ -75,13 +66,10 @@ export default function CategoryEditForm({
     setPendingValues(null);
   }
 
-  const parentName = (id: string) =>
-    parentCategories.find((c) => c.id === id)?.name ?? id;
-
   type SummaryRow = { label: string; value: string; changed: boolean };
 
   function buildSummary(values: CategoryFormValues): SummaryRow[] {
-    const rows: SummaryRow[] = [
+    return [
       {
         label: 'Name',
         value: values.name,
@@ -93,27 +81,11 @@ export default function CategoryEditForm({
         changed: values.description !== category.description,
       },
       {
-        label: 'Top-level',
-        value: values.isParent ? 'Yes' : 'No',
-        changed: values.isParent !== category.isParent,
+        label: 'Misc Details',
+        value: values.miscDetails || '—',
+        changed: values.miscDetails !== category.miscDetails,
       },
     ];
-
-    if (!values.isParent) {
-      rows.push({
-        label: 'Parent Category',
-        value: values.parentId ? parentName(values.parentId) : '—',
-        changed: values.parentId !== category.parentId,
-      });
-    }
-
-    rows.push({
-      label: 'Misc Details',
-      value: values.miscDetails || '—',
-      changed: values.miscDetails !== category.miscDetails,
-    });
-
-    return rows;
   }
 
   return (
@@ -177,66 +149,16 @@ export default function CategoryEditForm({
             )}
           </form.Field>
 
-          <form.Field name="isParent">
-            {(field) => (
-              <Field>
-                <div className="flex items-center gap-3">
-                  <Switch
-                    id={field.name}
-                    checked={field.state.value}
-                    onCheckedChange={(checked) => {
-                      field.handleChange(checked);
-                      if (checked)
-                        form.setFieldValue('parentId', category.parentId);
-                    }}
-                    onBlur={field.handleBlur}
-                  />
-                  <LabelWithTooltip
-                    htmlFor={field.name}
-                    label="Top-level category"
-                    tip="Top-level categories are root categories. Disable to nest this category under a parent."
-                  />
-                </div>
-                <FieldError errors={field.state.meta.errors} />
-              </Field>
-            )}
-          </form.Field>
-
-          <form.Field name="parentId">
-            {(field) => (
-              <form.Subscribe selector={(state) => state.values.isParent}>
-                {(isParent) => (
-                  <Field>
-                    <LabelWithTooltip
-                      htmlFor={field.name}
-                      label="Parent Category"
-                      tip="The root category this belongs to. Only applicable when Top-level is off."
-                    />
-                    <Select
-                      value={field.state.value}
-                      onValueChange={(val) => field.handleChange(val)}
-                      disabled={isParent}
-                    >
-                      <SelectTrigger
-                        id={field.name}
-                        aria-invalid={field.state.meta.errors.length > 0}
-                      >
-                        <SelectValue placeholder="Select a parent category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {parentCategories.map((c) => (
-                          <SelectItem key={c.id} value={c.id}>
-                            {c.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                )}
-              </form.Subscribe>
-            )}
-          </form.Field>
+          {!category.isParent && (
+            <Field>
+              <LabelWithTooltip
+                htmlFor="parentId"
+                label="Parent Category"
+                tip="The root category this belongs to. This cannot be changed."
+              />
+              <Input id="parentId" value={parentName} disabled />
+            </Field>
+          )}
 
           <form.Field name="miscDetails">
             {(field) => (
@@ -286,28 +208,22 @@ export default function CategoryEditForm({
             <AlertDialogDescription asChild>
               <div className="space-y-1 text-sm">
                 {pendingValues &&
-                  buildSummary(pendingValues).map(
-                    ({ label, value, changed }) => (
-                      <div key={label} className="flex gap-2">
-                        <span className="text-muted-foreground w-32 shrink-0">
-                          {label}
-                        </span>
-                        <span
-                          className={changed ? 'font-bold text-foreground' : ''}
-                        >
-                          {value}
-                        </span>
-                      </div>
-                    )
-                  )}
+                  buildSummary(pendingValues).map(({ label, value, changed }) => (
+                    <div key={label} className="flex gap-2">
+                      <span className="text-muted-foreground w-32 shrink-0">
+                        {label}
+                      </span>
+                      <span className={changed ? 'font-bold text-foreground' : ''}>
+                        {value}
+                      </span>
+                    </div>
+                  ))}
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirm}>
-              Confirm
-            </AlertDialogAction>
+            <AlertDialogAction onClick={handleConfirm}>Confirm</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
