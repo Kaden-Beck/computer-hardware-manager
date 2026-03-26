@@ -2,10 +2,10 @@ import React from 'react';
 // Shadcn
 import {
   Field,
-  FieldLabel,
   FieldError,
   FieldGroup,
 } from '@/components/ui/field';
+import { LabelWithTooltip } from '@/components/ui/label-with-tooltip';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -44,7 +44,7 @@ export default function ManufacturerEditForm({
         <form.Field name="name">
           {(field) => (
             <Field>
-              <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+              <LabelWithTooltip htmlFor={field.name} label="Name" tip="The display name of this manufacturer." />
               <Input
                 id={field.name}
                 value={field.state.value}
@@ -63,7 +63,7 @@ export default function ManufacturerEditForm({
         <form.Field name="description">
           {(field) => (
             <Field>
-              <FieldLabel htmlFor={field.name}>Description</FieldLabel>
+              <LabelWithTooltip htmlFor={field.name} label="Description" tip="A brief description shown in manufacturer listings." />
               <Textarea
                 id={field.name}
                 value={field.state.value}
