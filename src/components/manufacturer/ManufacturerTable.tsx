@@ -1,7 +1,6 @@
 // Shadcn Imports
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Table,
   TableBody,
@@ -24,16 +23,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 // TanStack Table Imports
 import {
   createColumnHelper,
@@ -55,6 +44,7 @@ import { useState } from 'react';
 // Types and Data
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import type { Manufacturer } from '@/schema/Manufacturer';
+import ManufacturerAddForm from './ManufacturerAddForm';
 
 // Table Helpers
 const columnHelper = createColumnHelper<Manufacturer>();
@@ -138,9 +128,6 @@ export default function ManufacturerTable(): React.JSX.Element {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [newName, setNewName] = useState('');
-  const [newDescription, setNewDescription] = useState('');
 
   const table = useReactTable({
     data,
@@ -156,24 +143,6 @@ export default function ManufacturerTable(): React.JSX.Element {
       pagination: { pageSize: 10, pageIndex: 0 },
     },
   });
-
-  function handleSaveClick() {
-    if (!newName.trim()) return;
-    setConfirmOpen(true);
-  }
-
-  function handleConfirm() {
-    const newManufacturer: Manufacturer = {
-      id: Math.random().toString(16).slice(2, 10),
-      name: newName.trim(),
-      description: newDescription.trim(),
-    };
-    setData((prev) => [...prev, newManufacturer]);
-    setNewName('');
-    setNewDescription('');
-    setConfirmOpen(false);
-    setSheetOpen(false);
-  }
 
   return (
     <div>
@@ -195,57 +164,9 @@ export default function ManufacturerTable(): React.JSX.Element {
             <SheetHeader>
               <SheetTitle>Add Manufacturer</SheetTitle>
             </SheetHeader>
-            <div className="flex flex-col gap-4 mt-6 px-4">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  placeholder="e.g. Corsair"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Input
-                  id="description"
-                  value={newDescription}
-                  onChange={(e) => setNewDescription(e.target.value)}
-                  placeholder="e.g. Produces RAM, PSUs, and peripherals."
-                />
-              </div>
-              <Button onClick={handleSaveClick} className="mt-2">
-                Save
-              </Button>
-            </div>
+            <ManufacturerAddForm onSuccess={() => setSheetOpen(false)} />
           </SheetContent>
         </Sheet>
-        <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Confirm New Manufacturer</AlertDialogTitle>
-              <AlertDialogDescription asChild>
-                <div className="space-y-1 text-sm">
-                  <p>
-                    <span className="font-medium">Name:</span> {newName.trim()}
-                  </p>
-                  {newDescription.trim() && (
-                    <p>
-                      <span className="font-medium">Description:</span>{' '}
-                      {newDescription.trim()}
-                    </p>
-                  )}
-                </div>
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleConfirm}>
-                Confirm
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       </div>
       <Table>
         <TableHeader className="bg-muted/50">
