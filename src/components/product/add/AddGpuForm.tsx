@@ -18,7 +18,7 @@ import type { ProductSpecFormProps } from './AddBaseProductForm';
 import {
   useAddGpuForm,
   type GpuFormValues,
-} from '@/hooks/form/useAddGpuProductForm';
+} from '@/hooks/form/product/add/useAddGpuForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import { ArrowLeft } from 'lucide-react';
 

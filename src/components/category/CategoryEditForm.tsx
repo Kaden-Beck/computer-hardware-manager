@@ -20,7 +20,7 @@ import { LabelWithTooltip } from '@/components/ui/label-with-tooltip';
 import {
   useCategoryForm,
   type CategoryFormValues,
-} from '@/hooks/form/useCategoryForm';
+} from '@/hooks/form/category/useEditCategoryForm';
 
 // Stub Data
 import { categoryDetails } from '@/data/stub/categoryData';

@@ -1,18 +1,15 @@
 import { useForm } from '@tanstack/react-form';
 import {
   cpuCoolerProductSchema,
-  type CpuCoolerProductFormValues,
+  type CpuCoolerFormValues,
 } from '@/lib/validators/product/cpuCooler';
 
-export type { CpuCoolerProductFormValues };
+export type { CpuCoolerFormValues };
 
 interface UseCpuCoolerProductFormOptions {
   categoryId: string;
-  defaultValues?: Partial<CpuCoolerProductFormValues>;
-  onSubmit: (
-    values: CpuCoolerProductFormValues,
-    categoryId: string
-  ) => Promise<void>;
+  defaultValues?: Partial<CpuCoolerFormValues>;
+  onSubmit: (values: CpuCoolerFormValues, categoryId: string) => Promise<void>;
 }
 
 export function useCpuCoolerProductForm({
@@ -27,7 +24,7 @@ export function useCpuCoolerProductForm({
       description: defaultValues?.description ?? '',
       color: defaultValues?.color ?? '',
       msrp: defaultValues?.msrp ?? 0,
-      price: defaultValues?.price,
+      price: defaultValues?.price ?? null,
       quantity: defaultValues?.quantity ?? 0,
       manufacturerId: defaultValues?.manufacturerId ?? '',
       coolerType: defaultValues?.coolerType ?? 'Air',
@@ -35,7 +32,7 @@ export function useCpuCoolerProductForm({
       maxTDP: defaultValues?.maxTDP ?? 0,
       socketCompatibility: defaultValues?.socketCompatibility ?? '',
       heightMM: defaultValues?.heightMM ?? 0,
-      radiatorSizeMM: defaultValues?.radiatorSizeMM,
+      radiatorSizeMM: defaultValues?.radiatorSizeMM ?? null,
     },
     validators: {
       onChange: cpuCoolerProductSchema,

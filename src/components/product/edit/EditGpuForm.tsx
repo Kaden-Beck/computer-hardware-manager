@@ -17,8 +17,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   useGpuProductForm,
-  type GpuProductFormValues,
-} from '@/hooks/form/product/useGpuProductForm';
+  type GpuFormValues,
+} from '@/hooks/form/product/edit/useEditGpuForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function GpuProductEditForm({
@@ -26,8 +26,9 @@ export function GpuProductEditForm({
   onSuccess,
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
-  const [pendingValues, setPendingValues] =
-    useState<GpuProductFormValues | null>(null);
+  const [pendingValues, setPendingValues] = useState<GpuFormValues | null>(
+    null
+  );
 
   const form = useGpuProductForm({
     categoryId: product.categoryId,

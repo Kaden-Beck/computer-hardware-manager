@@ -20,7 +20,7 @@ import { LabelWithTooltip } from '@/components/ui/label-with-tooltip';
 import {
   useAddManufacturerForm,
   type ManufacturerFormValues,
-} from '@/hooks/form/useAddManufacturerForm';
+} from '@/hooks/form/manufacturer/useAddManufacturerForm';
 import type { Manufacturer } from '@/schema/Manufacturer';
 
 interface ManufacturerAddFormProps {

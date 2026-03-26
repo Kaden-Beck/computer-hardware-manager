@@ -18,8 +18,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   useCpuProductForm,
-  type CpuProductFormValues,
-} from '@/hooks/form/product/useCpuProductForm';
+  type CpuFormValues,
+} from '@/hooks/form/product/edit/useEditCpuForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function CpuProductEditForm({
@@ -28,7 +28,7 @@ export function CpuProductEditForm({
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
   const [pendingValues, setPendingValues] =
-    useState<CpuProductFormValues | null>(null);
+    useState<CpuFormValues | null>(null);
 
   const form = useCpuProductForm({
     categoryId: product.categoryId,
@@ -233,7 +233,7 @@ export function CpuProductEditForm({
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     field.handleChange(
                       e.target.value === ''
-                        ? undefined
+                        ? null
                         : parseInt(e.target.value, 10)
                     )
                   }

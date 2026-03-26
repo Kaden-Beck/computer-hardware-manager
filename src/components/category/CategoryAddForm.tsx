@@ -27,7 +27,7 @@ import { Input } from '@/components/ui/input';
 import {
   useAddCategoryForm,
   type AddCategoryFormValues,
-} from '@/hooks/form/useAddCategoryForm';
+} from '@/hooks/form/category/useAddCategoryForm';
 import type { Category } from '@/schema/Category';
 
 // Stub Data

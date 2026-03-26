@@ -1,4 +1,3 @@
-import React from 'react';
 import { Info } from 'lucide-react';
 import { FieldLabel } from '@/components/ui/field';
 import {

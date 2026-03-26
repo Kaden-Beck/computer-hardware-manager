@@ -24,8 +24,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   usePsuProductForm,
-  type PsuProductFormValues,
-} from '@/hooks/form/product/usePsuProductForm';
+  type PsuFormValues,
+} from '@/hooks/form/product/edit/useEditPsuForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function PsuProductEditForm({
@@ -33,8 +33,9 @@ export function PsuProductEditForm({
   onSuccess,
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
-  const [pendingValues, setPendingValues] =
-    useState<PsuProductFormValues | null>(null);
+  const [pendingValues, setPendingValues] = useState<PsuFormValues | null>(
+    null
+  );
 
   const form = usePsuProductForm({
     categoryId: product.categoryId,
@@ -132,7 +133,7 @@ export function PsuProductEditForm({
                 <Select
                   value={field.state.value}
                   onValueChange={(val) =>
-                    field.handleChange(val as PsuProductFormValues['modular'])
+                    field.handleChange(val as PsuFormValues['modular'])
                   }
                 >
                   <SelectTrigger

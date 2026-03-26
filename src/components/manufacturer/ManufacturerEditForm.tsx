@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 
 // Tanstack Form hook
-import { useManufacturerForm } from '@/hooks/form/useManufacturerForm';
+import { useManufacturerForm } from '@/hooks/form/manufacturer/useEditManufacturerForm';
 
 // Props for pre-populating form
 interface ManufacturerEditFormProps {

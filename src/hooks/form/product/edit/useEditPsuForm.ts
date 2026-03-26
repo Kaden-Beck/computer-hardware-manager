@@ -1,15 +1,15 @@
 import { useForm } from '@tanstack/react-form';
 import {
   psuProductSchema,
-  type PsuProductFormValues,
+  type PsuFormValues,
 } from '@/lib/validators/product/psu';
 
-export type { PsuProductFormValues };
+export type { PsuFormValues };
 
 interface UsePsuProductFormOptions {
   categoryId: string;
-  defaultValues?: Partial<PsuProductFormValues>;
-  onSubmit: (values: PsuProductFormValues, categoryId: string) => Promise<void>;
+  defaultValues?: Partial<PsuFormValues>;
+  onSubmit: (values: PsuFormValues, categoryId: string) => Promise<void>;
 }
 
 export function usePsuProductForm({
@@ -24,7 +24,7 @@ export function usePsuProductForm({
       description: defaultValues?.description ?? '',
       color: defaultValues?.color ?? '',
       msrp: defaultValues?.msrp ?? 0,
-      price: defaultValues?.price,
+      price: defaultValues?.price ?? null,
       quantity: defaultValues?.quantity ?? 0,
       manufacturerId: defaultValues?.manufacturerId ?? '',
       wattage: defaultValues?.wattage ?? 0,

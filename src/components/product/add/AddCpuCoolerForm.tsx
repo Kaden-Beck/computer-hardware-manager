@@ -25,7 +25,7 @@ import type { ProductSpecFormProps } from './AddBaseProductForm';
 import {
   useAddCpuCoolerForm,
   type CpuCoolerFormValues,
-} from '@/hooks/form/useAddCpuCoolerProductForm';
+} from '@/hooks/form/product/add/useAddCpuCoolerForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import { ArrowLeft } from 'lucide-react';
 

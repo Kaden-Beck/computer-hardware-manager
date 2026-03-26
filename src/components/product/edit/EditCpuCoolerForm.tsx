@@ -24,8 +24,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   useCpuCoolerProductForm,
-  type CpuCoolerProductFormValues,
-} from '@/hooks/form/product/useCpuCoolerProductForm';
+  type CpuCoolerFormValues,
+} from '@/hooks/form/product/edit/useEditCpuCoolerForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function CpuCoolerProductEditForm({
@@ -34,7 +34,7 @@ export function CpuCoolerProductEditForm({
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
   const [pendingValues, setPendingValues] =
-    useState<CpuCoolerProductFormValues | null>(null);
+    useState<CpuCoolerFormValues | null>(null);
 
   const form = useCpuCoolerProductForm({
     categoryId: product.categoryId,
@@ -85,7 +85,7 @@ export function CpuCoolerProductEditForm({
                   value={field.state.value}
                   onValueChange={(val) =>
                     field.handleChange(
-                      val as CpuCoolerProductFormValues['coolerType']
+                      val as CpuCoolerFormValues['coolerType']
                     )
                   }
                 >

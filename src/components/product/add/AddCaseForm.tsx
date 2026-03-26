@@ -21,7 +21,7 @@ import type { ProductSpecFormProps } from './AddBaseProductForm';
 import {
   useAddCaseForm,
   type CaseFormValues,
-} from '@/hooks/form/useAddCaseProductForm';
+} from '@/hooks/form/product/add/useAddCaseForm';
 
 // Stub Data
 import { manufacturerDetails } from '@/data/stub/manufacturerData';

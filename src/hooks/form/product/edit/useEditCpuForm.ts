@@ -1,15 +1,15 @@
 import { useForm } from '@tanstack/react-form';
 import {
   cpuProductSchema,
-  type CpuProductFormValues,
+  type CpuFormValues,
 } from '@/lib/validators/product/cpu';
 
-export type { CpuProductFormValues };
+export type { CpuFormValues };
 
 interface UseCpuProductFormOptions {
   categoryId: string;
-  defaultValues?: Partial<CpuProductFormValues>;
-  onSubmit: (values: CpuProductFormValues, categoryId: string) => Promise<void>;
+  defaultValues?: Partial<CpuFormValues>;
+  onSubmit: (values: CpuFormValues, categoryId: string) => Promise<void>;
 }
 
 export function useCpuProductForm({
@@ -24,7 +24,7 @@ export function useCpuProductForm({
       description: defaultValues?.description ?? '',
       color: defaultValues?.color ?? '',
       msrp: defaultValues?.msrp ?? 0,
-      price: defaultValues?.price,
+      price: defaultValues?.price ?? null,
       quantity: defaultValues?.quantity ?? 0,
       manufacturerId: defaultValues?.manufacturerId ?? '',
       cores: defaultValues?.cores ?? 0,
@@ -33,8 +33,8 @@ export function useCpuProductForm({
       tdp: defaultValues?.tdp ?? 0,
       socketType: defaultValues?.socketType ?? '',
       integratedGraphics: defaultValues?.integratedGraphics ?? false,
-      boostClockGHz: defaultValues?.boostClockGHz,
-      cacheMB: defaultValues?.cacheMB,
+      boostClockGHz: defaultValues?.boostClockGHz ?? null,
+      cacheMB: defaultValues?.cacheMB ?? null,
     },
     validators: {
       onChange: cpuProductSchema,

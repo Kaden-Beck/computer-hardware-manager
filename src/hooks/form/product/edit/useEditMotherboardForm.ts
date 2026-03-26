@@ -1,16 +1,16 @@
 import { useForm } from '@tanstack/react-form';
 import {
   motherboardProductSchema,
-  type MotherboardProductFormValues,
+  type MotherboardFormValues,
 } from '@/lib/validators/product/motherboard';
 
-export type { MotherboardProductFormValues };
+export type { MotherboardFormValues };
 
 interface UseMotherboardProductFormOptions {
   categoryId: string;
-  defaultValues?: Partial<MotherboardProductFormValues>;
+  defaultValues?: Partial<MotherboardFormValues>;
   onSubmit: (
-    values: MotherboardProductFormValues,
+    values: MotherboardFormValues,
     categoryId: string
   ) => Promise<void>;
 }
@@ -27,7 +27,7 @@ export function useMotherboardProductForm({
       description: defaultValues?.description ?? '',
       color: defaultValues?.color ?? '',
       msrp: defaultValues?.msrp ?? 0,
-      price: defaultValues?.price,
+      price: defaultValues?.price ?? null,
       quantity: defaultValues?.quantity ?? 0,
       manufacturerId: defaultValues?.manufacturerId ?? '',
       socketType: defaultValues?.socketType ?? '',
@@ -36,9 +36,9 @@ export function useMotherboardProductForm({
       memoryType: defaultValues?.memoryType ?? '',
       memorySlots: defaultValues?.memorySlots ?? 0,
       maxMemoryGB: defaultValues?.maxMemoryGB ?? 0,
-      m2Slots: defaultValues?.m2Slots,
-      sataSlots: defaultValues?.sataSlots,
-      pciSlots: defaultValues?.pciSlots,
+      m2Slots: defaultValues?.m2Slots ?? null,
+      sataSlots: defaultValues?.sataSlots ?? null,
+      pciSlots: defaultValues?.pciSlots ?? null,
     },
     validators: {
       onChange: motherboardProductSchema,

@@ -25,7 +25,7 @@ import type { ProductSpecFormProps } from './AddBaseProductForm';
 import {
   useAddPsuForm,
   type PsuFormValues,
-} from '@/hooks/form/useAddPsuProductForm';
+} from '@/hooks/form/product/add/useAddPsuForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import { ArrowLeft } from 'lucide-react';
 

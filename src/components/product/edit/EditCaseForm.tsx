@@ -17,8 +17,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   useCaseProductForm,
-  type CaseProductFormValues,
-} from '@/hooks/form/product/useCaseProductForm';
+  type CaseFormValues,
+} from '@/hooks/form/product/edit/useEditCaseForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function CaseProductEditForm({
@@ -26,8 +26,9 @@ export function CaseProductEditForm({
   onSuccess,
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
-  const [pendingValues, setPendingValues] =
-    useState<CaseProductFormValues | null>(null);
+  const [pendingValues, setPendingValues] = useState<CaseFormValues | null>(
+    null
+  );
 
   const form = useCaseProductForm({
     categoryId: product.categoryId,

@@ -18,7 +18,7 @@ import type { ProductSpecFormProps } from './AddBaseProductForm';
 import {
   useAddMotherboardForm,
   type MotherboardFormValues,
-} from '@/hooks/form/useAddMotherboardProductForm';
+} from '@/hooks/form/product/add/useAddMotherboardForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import { ArrowLeft } from 'lucide-react';
 

@@ -17,8 +17,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   useMotherboardProductForm,
-  type MotherboardProductFormValues,
-} from '@/hooks/form/product/useMotherboardProductForm';
+  type MotherboardFormValues,
+} from '@/hooks/form/product/edit/useEditMotherboardForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function MotherboardProductEditForm({
@@ -27,7 +27,7 @@ export function MotherboardProductEditForm({
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
   const [pendingValues, setPendingValues] =
-    useState<MotherboardProductFormValues | null>(null);
+    useState<MotherboardFormValues | null>(null);
 
   const form = useMotherboardProductForm({
     categoryId: product.categoryId,

@@ -1,15 +1,15 @@
 import { useForm } from '@tanstack/react-form';
 import {
   ramProductSchema,
-  type RamProductFormValues,
+  type RamFormValues,
 } from '@/lib/validators/product/ram';
 
-export type { RamProductFormValues };
+export type { RamFormValues };
 
 interface UseRamProductFormOptions {
   categoryId: string;
-  defaultValues?: Partial<RamProductFormValues>;
-  onSubmit: (values: RamProductFormValues, categoryId: string) => Promise<void>;
+  defaultValues?: Partial<RamFormValues>;
+  onSubmit: (values: RamFormValues, categoryId: string) => Promise<void>;
 }
 
 export function useRamProductForm({
@@ -24,15 +24,15 @@ export function useRamProductForm({
       description: defaultValues?.description ?? '',
       color: defaultValues?.color ?? '',
       msrp: defaultValues?.msrp ?? 0,
-      price: defaultValues?.price,
+      price: defaultValues?.price ?? null,
       quantity: defaultValues?.quantity ?? 0,
       manufacturerId: defaultValues?.manufacturerId ?? '',
       memoryType: defaultValues?.memoryType ?? '',
       speedMHz: defaultValues?.speedMHz ?? 0,
       capacityGB: defaultValues?.capacityGB ?? 0,
       modules: defaultValues?.modules ?? 0,
-      casLatency: defaultValues?.casLatency,
-      voltage: defaultValues?.voltage,
+      casLatency: defaultValues?.casLatency ?? null,
+      voltage: defaultValues?.voltage ?? null,
     },
     validators: {
       onChange: ramProductSchema,

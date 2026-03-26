@@ -1,18 +1,15 @@
 import { useForm } from '@tanstack/react-form';
 import {
   storageProductSchema,
-  type StorageProductFormValues,
+  type StorageFormValues,
 } from '@/lib/validators/product/storage';
 
-export type { StorageProductFormValues };
+export type { StorageFormValues };
 
 interface UseStorageProductFormOptions {
   categoryId: string;
-  defaultValues?: Partial<StorageProductFormValues>;
-  onSubmit: (
-    values: StorageProductFormValues,
-    categoryId: string
-  ) => Promise<void>;
+  defaultValues?: Partial<StorageFormValues>;
+  onSubmit: (values: StorageFormValues, categoryId: string) => Promise<void>;
 }
 
 export function useStorageProductForm({
@@ -27,15 +24,15 @@ export function useStorageProductForm({
       description: defaultValues?.description ?? '',
       color: defaultValues?.color ?? '',
       msrp: defaultValues?.msrp ?? 0,
-      price: defaultValues?.price,
+      price: defaultValues?.price ?? null,
       quantity: defaultValues?.quantity ?? 0,
       manufacturerId: defaultValues?.manufacturerId ?? '',
       storageType: defaultValues?.storageType ?? 'SSD',
       capacityGB: defaultValues?.capacityGB ?? 0,
       interface: defaultValues?.interface ?? '',
       formFactor: defaultValues?.formFactor ?? '',
-      readSpeedMBps: defaultValues?.readSpeedMBps,
-      writeSpeedMBps: defaultValues?.writeSpeedMBps,
+      readSpeedMBps: defaultValues?.readSpeedMBps ?? null,
+      writeSpeedMBps: defaultValues?.writeSpeedMBps ?? null,
     },
     validators: {
       onChange: storageProductSchema,

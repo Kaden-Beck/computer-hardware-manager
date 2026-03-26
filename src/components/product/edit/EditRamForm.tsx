@@ -17,8 +17,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   useRamProductForm,
-  type RamProductFormValues,
-} from '@/hooks/form/product/useRamProductForm';
+  type RamFormValues,
+} from '@/hooks/form/product/edit/useEditRamForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function RamProductEditForm({
@@ -27,7 +27,7 @@ export function RamProductEditForm({
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
   const [pendingValues, setPendingValues] =
-    useState<RamProductFormValues | null>(null);
+    useState<RamFormValues | null>(null);
 
   const form = useRamProductForm({
     categoryId: product.categoryId,

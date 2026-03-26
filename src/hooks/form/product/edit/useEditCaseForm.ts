@@ -1,18 +1,15 @@
 import { useForm } from '@tanstack/react-form';
 import {
   caseProductSchema,
-  type CaseProductFormValues,
+  type CaseFormValues,
 } from '@/lib/validators/product/case';
 
-export type { CaseProductFormValues };
+export type { CaseFormValues };
 
 interface UseCaseProductFormOptions {
   categoryId: string;
-  defaultValues?: Partial<CaseProductFormValues>;
-  onSubmit: (
-    values: CaseProductFormValues,
-    categoryId: string
-  ) => Promise<void>;
+  defaultValues?: Partial<CaseFormValues>;
+  onSubmit: (values: CaseFormValues, categoryId: string) => Promise<void>;
 }
 
 export function useCaseProductForm({
@@ -27,17 +24,17 @@ export function useCaseProductForm({
       description: defaultValues?.description ?? '',
       color: defaultValues?.color ?? '',
       msrp: defaultValues?.msrp ?? 0,
-      price: defaultValues?.price,
+      price: defaultValues?.price ?? null,
       quantity: defaultValues?.quantity ?? 0,
       manufacturerId: defaultValues?.manufacturerId ?? '',
       formFactor: defaultValues?.formFactor ?? '',
       moboSupport: defaultValues?.moboSupport ?? '',
-      maxGPULengthMM: defaultValues?.maxGPULengthMM,
-      maxCPUCoolerHeightMM: defaultValues?.maxCPUCoolerHeightMM,
-      maxPSULengthMM: defaultValues?.maxPSULengthMM,
-      driveSlotsTwoHalf: defaultValues?.driveSlotsTwoHalf,
-      driveSlotsThreeHalf: defaultValues?.driveSlotsThreeHalf,
-      fanSlots: defaultValues?.fanSlots,
+      maxGPULengthMM: defaultValues?.maxGPULengthMM ?? null,
+      maxCPUCoolerHeightMM: defaultValues?.maxCPUCoolerHeightMM ?? null,
+      maxPSULengthMM: defaultValues?.maxPSULengthMM ?? null,
+      driveSlotsTwoHalf: defaultValues?.driveSlotsTwoHalf ?? null,
+      driveSlotsThreeHalf: defaultValues?.driveSlotsThreeHalf ?? null,
+      fanSlots: defaultValues?.fanSlots ?? null,
       radiatorSupport: defaultValues?.radiatorSupport ?? '',
     },
     validators: {

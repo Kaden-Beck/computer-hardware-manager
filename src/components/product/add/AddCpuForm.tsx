@@ -19,7 +19,7 @@ import type { ProductSpecFormProps } from './AddBaseProductForm';
 import {
   useAddCpuForm,
   type CpuFormValues,
-} from '@/hooks/form/useAddCpuProductForm';
+} from '@/hooks/form/product/add/useAddCpuForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 import { ArrowLeft } from 'lucide-react';
 

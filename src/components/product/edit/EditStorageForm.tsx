@@ -24,8 +24,8 @@ import { ProductBaseFields } from '../ProductBaseFields';
 import type { ProductSpecEditFormProps } from './EditBaseProductForm';
 import {
   useStorageProductForm,
-  type StorageProductFormValues,
-} from '@/hooks/form/product/useStorageProductForm';
+  type StorageFormValues,
+} from '@/hooks/form/product/edit/useEditStorageForm';
 import { manufacturerDetails } from '@/data/stub/manufacturerData';
 
 export function StorageProductEditForm({
@@ -34,7 +34,7 @@ export function StorageProductEditForm({
   onEdit,
 }: ProductSpecEditFormProps): React.JSX.Element {
   const [pendingValues, setPendingValues] =
-    useState<StorageProductFormValues | null>(null);
+    useState<StorageFormValues | null>(null);
 
   const form = useStorageProductForm({
     categoryId: product.categoryId,
@@ -85,7 +85,7 @@ export function StorageProductEditForm({
                   value={field.state.value}
                   onValueChange={(val) =>
                     field.handleChange(
-                      val as StorageProductFormValues['storageType']
+                      val as StorageFormValues['storageType']
                     )
                   }
                 >
